@@ -23,3 +23,10 @@ body {
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
 }
+
+input,
+button,
+[tabindex] {
+    border: none;
+    outline: none;
+}
