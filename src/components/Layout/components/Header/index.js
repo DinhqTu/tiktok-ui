@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleXmark,
     faMagnifyingGlass,
+    faPlus,
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
+import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/image';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -19,7 +21,7 @@ function Header() {
     const [searchResult, setSearchResult] = useState([]);
     useEffect(() => {
         setTimeout(() => {
-            setSearchResult([1, 2, 3]);
+            // setSearchResult([1, 2, 3]);
         }, 0);
     }, []);
 
@@ -30,7 +32,7 @@ function Header() {
                     <img src={images.logo} alt="tiktok" />
                 </div>
                 <Tippy
-                    interactive
+                    interactives
                     visible={searchResult.length > 0}
                     render={(attrs) => (
                         <div
@@ -69,7 +71,13 @@ function Header() {
                     </div>
                 </Tippy>
                 <div className={cx('actions')}>
-                    <h3> actions</h3>
+                    <Button
+                        outline_text
+                        leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                    >
+                        Upload
+                    </Button>
+                    <Button primary>Log in</Button>
                 </div>
             </div>
         </header>

@@ -3,6 +3,7 @@
 
 :root {
     --primary: #fe2c55;
+    --white: #fff;
     --default-layout-width: 1150px;
     --default-layout-height: 60px;
 }
@@ -29,4 +30,9 @@ button,
 [tabindex] {
     border: none;
     outline: none;
+}
+
+a[href] {
+    text-decoration: none;
+    color: rgba(22, 24, 35, 0.8);
 }
