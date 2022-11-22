@@ -28,6 +28,21 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: 'Tiếng Việt',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'Tiếng Anh',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -47,6 +62,18 @@ const MENU_ITEMS = [
 
 function Header() {
     // const [searchResult, setSearchResult] = useState([]);
+
+    //handle logic
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                // handle logic language
+                break;
+
+            default:
+                break;
+        }
+    };
     return (
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -101,7 +128,7 @@ function Header() {
                     </Button>
                     <Button primary>Log in</Button>
 
-                    <Menu items={MENU_ITEMS}>
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx('menu_icon')}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>

@@ -98,4 +98,8 @@
     background-color: transparent;
     font-size: 2rem;
     padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    transform: translateY(25%);
+    cursor: pointer;
 }
