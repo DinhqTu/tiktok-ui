@@ -9,6 +9,12 @@
     background-color: var(--white);
     user-select: none;
     cursor: pointer;
+
+    // tại sao lại ko ăn scss ( chữa chãy = cách scss trong file global)
+    & .separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
+
     + .wrapper {
         margin-left: 12px;
     }

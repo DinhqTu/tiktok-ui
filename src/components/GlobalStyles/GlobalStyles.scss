@@ -36,3 +36,29 @@ a[href] {
     text-decoration: none;
     color: rgba(22, 24, 35, 1);
 }
+
+// customer tippy  tooltip
+body {
+    .tippy-box {
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        background-color: rgba(84, 84, 84, 0.92);
+    }
+
+    .tippy-arrow {
+        color: rgba(84, 84, 84, 0.92);
+    }
+
+    .tippy-content {
+        padding: 8px 9px;
+    }
+
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+        top: -8px;
+    }
+    & .separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
+}

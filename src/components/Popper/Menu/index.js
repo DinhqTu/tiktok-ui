@@ -18,9 +18,10 @@ function Menu({ children, items = [], onChange = { defaultfn } }) {
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;
+            const classes = cx('item', { separate: item.separate });
             return (
                 <Button
-                    className={cx('item')}
+                    className={classes}
                     key={index}
                     to={item.to}
                     leftIcon={item.icon}
@@ -41,7 +42,7 @@ function Menu({ children, items = [], onChange = { defaultfn } }) {
 
     return (
         <Tippy
-            // visible
+            visible
             interactive
             delay={[0, 700]}
             placement="bottom-end"
@@ -62,6 +63,10 @@ function Menu({ children, items = [], onChange = { defaultfn } }) {
                     </PopperWrapper>
                 </div>
             )}
+            // sau khi click ra khỏi menu, menu sẽ reset về parent
+            onHide={() => {
+                setHistory((prev) => prev.slice(0, 1));
+            }}
         >
             {children}
         </Tippy>
