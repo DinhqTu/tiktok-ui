@@ -29,6 +29,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccoutItem';
 import Menu from '~/components/Popper/Menu';
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
+import Image from '~/components/Image';
+import { SearchIcon } from '~/components/Icon';
 
 const cx = classNames.bind(styles);
 
@@ -162,6 +164,7 @@ function Header() {
                         />
                         <button className={cx('search-btn')}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            {/* <SearchIcon /> */}
                         </button>
                     </div>
                 </HeadlessTippy>
@@ -175,7 +178,7 @@ function Header() {
                     </Button>
                     {currentUser ? (
                         <>
-                            <Tippy delay={[0, 150]} content="Message">
+                            <Tippy delay={[0, 100]} content="Message">
                                 <button className={cx('action-btn')}>
                                     <img src={images.message} alt="message" />
                                 </button>
@@ -197,7 +200,7 @@ function Header() {
                         onChange={handleMenuChange}
                     >
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
                                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/e2108592d674e23b0b7ca9fefe9b20f3~c5_100x100.jpeg?x-expires=1669395600&x-signature=DjXJ8aj2SWLxpDTObBwhdzDf2Vg%3D"
                                 alt="Dinh Tu"
