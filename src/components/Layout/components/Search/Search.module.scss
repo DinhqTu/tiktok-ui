@@ -57,6 +57,19 @@
     margin-right: 12px;
 }
 
+.loading {
+    animation: spiner 0.8s linear infinite;
+}
+
+@keyframes spiner {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
 .search-btn {
     width: 48px;
     height: 100%;
