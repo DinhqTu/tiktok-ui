@@ -10,7 +10,12 @@ const cx = classNames.bind(styles);
 
 const defaultfn = () => {};
 
-function Menu({ children, items = [], onChange = { defaultfn } }) {
+function Menu({
+    children,
+    items = [],
+    hideOnClick = false,
+    onChange = { defaultfn },
+}) {
     const [history, setHistory] = useState([{ data: items }]);
 
     const current = history[history.length - 1];
@@ -46,6 +51,7 @@ function Menu({ children, items = [], onChange = { defaultfn } }) {
             interactive
             delay={[0, 300]}
             placement="bottom-end"
+            hideOnClick={hideOnClick}
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('wrapper-item')}>
@@ -59,7 +65,10 @@ function Menu({ children, items = [], onChange = { defaultfn } }) {
                                 }}
                             />
                         )}
-                        {renderItems()}
+                        <div className={cx('scroll-menu')}>
+                            {' '}
+                            {renderItems()}
+                        </div>
                     </PopperWrapper>
                 </div>
             )}

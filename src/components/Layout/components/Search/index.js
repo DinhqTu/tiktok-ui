@@ -34,7 +34,7 @@ function Search() {
             setLoading(true);
 
             const results = await searchService.search(debounce);
-            
+
             setSearchResult(results);
             setLoading(false);
         };
@@ -52,58 +52,76 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleSearchValue = (e) => {
+        const valueSearch = e.target.value;
+
+        if (!valueSearch.startsWith(' ')) {
+            setSearchValue(valueSearch);
+        }
+    };
+
     return (
-        <HeadlessTippy
-            visible={showResult && searchResult.length > 0}
-            interactive
-            delay={[0, 300]}
-            render={(attrs) => (
-                <div className={cx('search-results')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Tài khoản</h4>
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
-                        ))}
-                    </PopperWrapper>
+        // Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.
+        <div>
+            <HeadlessTippy
+                visible={showResult && searchResult.length > 0}
+                interactive
+                delay={[0, 300]}
+                render={(attrs) => (
+                    <div
+                        className={cx('search-results')}
+                        tabIndex="-1"
+                        {...attrs}
+                    >
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Tài khoản</h4>
+                            {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} />
+                            ))}
+                        </PopperWrapper>
+                    </div>
+                )}
+                // popperOptions={{
+                //     modifiers: [{ name: 'flip', enabled: false }],
+                // }}
+                onClickOutside={handleHiddenResult}
+            >
+                <div className={cx('search')}>
+                    <input
+                        ref={inputRef}
+                        value={searchValue}
+                        type="text"
+                        placeholder="Tìm kiếm tài khoản hoặc video"
+                        onChange={handleSearchValue}
+                        onFocus={() => {
+                            setShowResult(true);
+                        }}
+                    />
+                    {!!searchValue && !loading && (
+                        <FontAwesomeIcon
+                            className={cx('clear')}
+                            icon={faCircleXmark}
+                            onClick={handleClearValue}
+                        />
+                    )}
+                    {loading && (
+                        <FontAwesomeIcon
+                            className={cx('loading')}
+                            icon={faSpinner}
+                        />
+                    )}
+                    <button
+                        className={cx('search-btn')}
+                        onMouseDown={(e) => {
+                            e.preventDefault();
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        {/* <SearchIcon /> */}
+                    </button>
                 </div>
-            )}
-            // popperOptions={{
-            //     modifiers: [{ name: 'flip', enabled: false }],
-            // }}
-            onClickOutside={handleHiddenResult}
-        >
-            <div className={cx('search')}>
-                <input
-                    ref={inputRef}
-                    value={searchValue}
-                    type="text"
-                    placeholder="Tìm kiếm tài khoản hoặc video"
-                    onChange={(e) => {
-                        setSearchValue(e.target.value);
-                    }}
-                    onFocus={() => {
-                        setShowResult(true);
-                    }}
-                />
-                {!!searchValue && !loading && (
-                    <FontAwesomeIcon
-                        className={cx('clear')}
-                        icon={faCircleXmark}
-                        onClick={handleClearValue}
-                    />
-                )}
-                {loading && (
-                    <FontAwesomeIcon
-                        className={cx('loading')}
-                        icon={faSpinner}
-                    />
-                )}
-                <button className={cx('search-btn')}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    {/* <SearchIcon /> */}
-                </button>
-            </div>
-        </HeadlessTippy>
+            </HeadlessTippy>
+        </div>
     );
 }
 

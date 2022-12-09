@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import {
     faChartLine,
@@ -24,6 +25,7 @@ import Menu from '~/components/Popper/Menu';
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import routesConfig from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -117,7 +119,9 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('logo')}>
-                    <img src={images.logo} alt="tiktok" />
+                    <Link to={routesConfig.home} className={cx('logo-header')}>
+                        <img src={images.logo} alt="tiktok" />
+                    </Link>
                 </div>
 
                 <Search />
@@ -155,7 +159,7 @@ function Header() {
                         {currentUser ? (
                             <Image
                                 className={cx('user-avatar')}
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/e2108592d674e23b0b7ca9fefe9b20f3~c5_100x100.jpeg?x-expires=1669395600&x-signature=DjXJ8aj2SWLxpDTObBwhdzDf2Vg%3D"
+                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/e2108592d674e23b0b7ca9fefe9b20f3~c5_720x720.jpeg?x-expires=1670569200&x-signature=Bl1ef%2BrNMiSXrFz%2BdtPUEWcEs1w%3D"
                                 alt="Dinh Tu"
                             />
                         ) : (
