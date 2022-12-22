@@ -66,7 +66,7 @@ function Menu({
                             />
                         )}
                         <div className={cx('scroll-menu')}>
-                            {' '}
+                            {/* {' '} */}
                             {renderItems()}
                         </div>
                     </PopperWrapper>

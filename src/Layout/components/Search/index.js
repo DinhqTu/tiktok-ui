@@ -8,7 +8,7 @@ import {
     faMagnifyingGlass,
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
-import * as searchService from '~/apiServices/searchService';
+import * as searchService from '~/services/searchService';
 import AccountItem from '~/components/AccoutItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Search.module.scss';
