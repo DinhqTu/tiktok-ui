@@ -20,7 +20,7 @@ function Menu({
     const [history, setHistory] = useState([{ data: items }]);
 
     const current = history[history.length - 1];
-    
+
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;
@@ -46,6 +46,14 @@ function Menu({
         });
     };
 
+    const handleBack = () => {
+        setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+
+    const handleResetMenu = () => {
+        setHistory((prev) => prev.slice(0, 1));
+    };
+
     return (
         <Tippy
             // visible
@@ -57,14 +65,7 @@ function Menu({
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('wrapper-item')}>
                         {history.length > 1 && (
-                            <Header
-                                title={current.title}
-                                onBack={() => {
-                                    setHistory((prev) =>
-                                        prev.slice(0, prev.length - 1),
-                                    );
-                                }}
-                            />
+                            <Header title={current.title} onBack={handleBack} />
                         )}
                         <div className={cx('scroll-menu')}>
                             {/* {' '} */}
@@ -74,9 +75,7 @@ function Menu({
                 </div>
             )}
             // sau khi click ra khỏi menu, menu sẽ reset về parent
-            onHide={() => {
-                setHistory((prev) => prev.slice(0, 1));
-            }}
+            onHide={handleResetMenu}
         >
             {children}
         </Tippy>
