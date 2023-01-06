@@ -10,6 +10,7 @@ import {
 import config from '~/config';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
+import SuggestedAccounts from './SuggestedAccounts';
 
 const cx = classNames.bind(styles);
 
@@ -36,6 +37,8 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 />
             </Menu>
+            <SuggestedAccounts label="Tài khoản được đề xuất" />
+            <SuggestedAccounts label="Các tài khoản đang follow" />
         </aside>
     );
 }
