@@ -117,7 +117,7 @@ function Search() {
                         }}
                     >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        {/* <SearchIcon /> */}
+                        {/* {<SearchIcon />} */}
                     </button>
                 </div>
             </HeadlessTippy>
