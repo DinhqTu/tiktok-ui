@@ -1,0 +1,61 @@
+.wrapper {
+    width: 320px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.fl-btn {
+    padding: 5px 12px;
+}
+
+.body {
+    color: #161823;
+    margin: 12px 0;
+}
+
+.nick-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.check {
+    width: 14px;
+    height: 14px;
+    color: #20d5ec;
+    margin-left: 4px;
+}
+
+.name {
+    font-size: 1.4rem;
+}
+
+.footer {
+    font-size: 1.7rem;
+    color: #161823;
+}
+
+.value-follow {
+    font-weight: 700;
+}
+
+.follow {
+}
+
+.value-like {
+    margin-left: 12px;
+    font-weight: 700;
+}
+
+.like {
+}
