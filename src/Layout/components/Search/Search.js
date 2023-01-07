@@ -9,7 +9,7 @@ import {
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import * as searchService from '~/services/searchService';
-import AccountItem from '~/components/AccoutItem';
+import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Search.module.scss';
 import { useDebounce } from '~/hooks';

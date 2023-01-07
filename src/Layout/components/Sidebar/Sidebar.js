@@ -8,6 +8,8 @@ import {
     LiveActiveIcon,
 } from '~/components/Icons';
 import config from '~/config';
+import Discovery from './Discovery';
+import Footer from './Footer';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
 import SuggestedAccounts from './SuggestedAccounts';
@@ -39,6 +41,8 @@ function Sidebar() {
             </Menu>
             <SuggestedAccounts label="Tài khoản được đề xuất" />
             <SuggestedAccounts className="" label="Các tài khoản đang follow" />
+            <Discovery label="Khám phá" />
+            <Footer />
         </aside>
     );
 }

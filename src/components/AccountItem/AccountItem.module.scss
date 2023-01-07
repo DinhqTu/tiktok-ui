@@ -3,6 +3,12 @@
     display: flex;
     align-items: center;
     line-height: 22px;
+    transition: background-color 200ms ease-in-out 0s;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+        cursor: pointer;
+    }
 }
 
 .avatar {
