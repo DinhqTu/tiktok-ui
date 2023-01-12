@@ -5,11 +5,9 @@ const cx = classNames.bind(styles);
 function InfoItem({ data }) {
     return (
         // <Typography component={'span'} variant={'body2'}>
-        <span>
-            <a href="" className={cx('title')}>
-                {data.title}
-            </a>
-        </span>
+        <a href="" className={cx('title')}>
+            {data.title}
+        </a>
         // {/* </Typography> */}
     );
 }

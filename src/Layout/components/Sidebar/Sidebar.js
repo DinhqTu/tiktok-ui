@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Button from '~/components/Button';
 import {
     HomeIcon,
     HomeActiveIcon,
@@ -17,6 +18,7 @@ import SuggestedAccounts from './SuggestedAccounts';
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const currentUser = false;
     return (
         <aside className={cx('wrapper')}>
             <Menu>
@@ -39,8 +41,24 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 />
             </Menu>
+            {currentUser || (
+                <div className={cx('wrapper_login')}>
+                    <p className={cx('title')}>
+                        Đăng nhập để follow các tác giả, thích video và xem bình
+                        luận.
+                    </p>
+                    <Button large outline className={cx('login_btn')}>
+                        Đăng nhập
+                    </Button>
+                </div>
+            )}
             <SuggestedAccounts label="Tài khoản được đề xuất" />
-            <SuggestedAccounts className="" label="Các tài khoản đang follow" />
+            {currentUser && (
+                <SuggestedAccounts
+                    className=""
+                    label="Các tài khoản đang follow"
+                />
+            )}
             <Discovery label="Khám phá" />
             <Footer />
         </aside>
