@@ -1,7 +1,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import {
@@ -17,6 +17,7 @@ import {
     Icon_ChevronDown,
 } from '../Icons';
 import styles from './ModalForm.module.scss';
+import { ModalContext } from '../ModalProvider';
 
 const cx = classNames.bind(styles);
 
@@ -114,7 +115,8 @@ const LOGIN_REGISTER_LIST = [
     },
 ];
 
-function ModalLogin() {
+function ModalForm() {
+    const context = useContext(ModalContext);
     const [typeOfForm, setTypeOfForm] = useState('login');
     const [dataForm, setDataForm] = useState([]);
     useEffect(() => {
@@ -139,7 +141,10 @@ function ModalLogin() {
     return (
         <div className={cx('modal_mask')}>
             <div className={cx('modal_wrapper')}>
-                <div className={cx('modal_close')}>
+                <div
+                    className={cx('modal_close')}
+                    onClick={context.handleHideModal}
+                >
                     <FontAwesomeIcon icon={faXmark} />
                 </div>
                 <div className={cx('modal_container')}>
@@ -149,9 +154,11 @@ function ModalLogin() {
                         <div className={cx('modal_items')}>
                             {dataForm.contents?.map((item, index) => {
                                 return (
-                                    <div className={cx('modal_item')}>
+                                    <div
+                                        key={index}
+                                        className={cx('modal_item')}
+                                    >
                                         <Button
-                                            key={item.index}
                                             className={cx('btn_login')}
                                             outline_text
                                         >
@@ -227,4 +234,4 @@ function ModalLogin() {
     );
 }
 
-export default ModalLogin;
+export default ModalForm;

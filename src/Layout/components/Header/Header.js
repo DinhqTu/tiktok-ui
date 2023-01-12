@@ -26,6 +26,8 @@ import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
 import Image from '~/components/Image';
 import Search from '../Search';
 import config from '~/config';
+import { useContext } from 'react';
+import { ModalContext } from '~/components/ModalProvider';
 
 const cx = classNames.bind(styles);
 
@@ -193,7 +195,8 @@ function Header() {
         }
     };
 
-    const currentUser = true;
+    const currentUser = false;
+    const context = useContext(ModalContext);
 
     return (
         <header className={cx('wrapper')}>
@@ -208,6 +211,7 @@ function Header() {
 
                 <div className={cx('actions')}>
                     <Button
+                        onClick={context.handleShowModal}
                         outline_text
                         leftIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
@@ -229,7 +233,9 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button primary>Log in</Button>
+                            <Button onClick={context.handleShowModal} primary>
+                                Log in
+                            </Button>
                         </>
                     )}
                     <Menu

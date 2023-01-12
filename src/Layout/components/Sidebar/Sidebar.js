@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useContext } from 'react';
 import Button from '~/components/Button';
 import {
     HomeIcon,
@@ -14,11 +15,13 @@ import Footer from './Footer';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
 import SuggestedAccounts from './SuggestedAccounts';
+import { ModalContext } from '~/components/ModalProvider';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const currentUser = false;
+    const context = useContext(ModalContext);
     return (
         <aside className={cx('wrapper')}>
             <Menu>
@@ -47,9 +50,11 @@ function Sidebar() {
                         Đăng nhập để follow các tác giả, thích video và xem bình
                         luận.
                     </p>
-                    <Button large outline className={cx('login_btn')}>
-                        Đăng nhập
-                    </Button>
+                    <span onClick={context.handleShowModal}>
+                        <Button large outline className={cx('login_btn')}>
+                            Đăng nhập
+                        </Button>
+                    </span>
                 </div>
             )}
             <SuggestedAccounts label="Tài khoản được đề xuất" />
