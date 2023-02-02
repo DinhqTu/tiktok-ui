@@ -6,16 +6,23 @@ import styles from './AccountPreview.module.scss';
 import Image from '~/components/Image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { ModalContext } from '~/components/ModalProvider';
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
+    const context = useContext(ModalContext);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <Image className={cx('img')} src={data.avatar} alt="" />
                 <p>
-                    <Button className={cx('fl-btn')} primary>
+                    <Button
+                        className={cx('fl-btn')}
+                        primary
+                        onClick={context.handleShowModal}
+                    >
                         Follow
                     </Button>
                 </p>
