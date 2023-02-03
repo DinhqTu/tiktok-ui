@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useContext } from 'react';
 
@@ -11,7 +12,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function AccountPreview() {
+function AccountPreview({ data }) {
     const context = useContext(ModalContext);
     return (
         <Wrapper>
@@ -19,7 +20,7 @@ function AccountPreview() {
                 <div className={cx('preview_header')}>
                     <Image
                         className={cx('preview_img')}
-                        src={'https:fullstack.edu.vn'}
+                        src={data?.user.avatar}
                         alt=""
                     />
                     <p>
@@ -34,8 +35,7 @@ function AccountPreview() {
                 </div>
                 <div className={cx('preview_body')}>
                     <p className={cx('preview_nick-name')}>
-                        Hoaalaaaa
-                        {/* {data.tick && ( */}
+                        {data?.user.nickname}
                         <FontAwesomeIcon
                             className={cx('preview_check')}
                             icon={faCheckCircle}
@@ -43,28 +43,27 @@ function AccountPreview() {
                         {/* )} */}
                     </p>{' '}
                     <p className={cx('preview_name')}>
-                        {/* {data.first_name + ' ' + data.last_name} */}
-                        Nguyễn Thị Hoa Lệ
+                        {data?.user.first_name + ' ' + data?.user.last_name}
                     </p>
                 </div>
                 <p className={cx('preview_footer')}>
                     <span className={cx('preview_value-follow')}>
-                        {/* {data.followers_count}{' '} */}
-                        700
+                        {data?.user.followers_count}
                     </span>
                     <span className={cx('preview_follow')}>Follower</span>
                     <span className={cx('preview_value-like')}>
-                        {/* {data.likes_count}{' '} */}
-                        800
+                        {data?.user.likes_count}
                     </span>
                     <span className={cx('preview_like')}>Thích</span>
                 </p>
-                <p className={cx('preview_contact')}>
-                    Liên hệ công việc : huynhhoanga8@gmail.com ( Ân Huỳnh )
-                </p>
+                <p className={cx('preview_contact')}>{data?.user.bio}</p>
             </div>
         </Wrapper>
     );
 }
+
+AccountPreview.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 
 export default AccountPreview;

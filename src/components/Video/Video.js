@@ -23,7 +23,7 @@ import {
 } from '../Icons';
 
 const cx = classNames.bind(styles);
-function Video({ mute, volume, adjustVolume, toggleMuted }) {
+function Video({ data, mute, volume, adjustVolume, toggleMuted }) {
     const context = useContext(ModalContext);
     const videoRef = useRef();
     const [playing, setPlaying] = useState(false);
@@ -59,11 +59,11 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
     };
 
     const playVideoInViewport = () => {
+        // dùng để lấy các vị trí x,y,height,width,... của phần tử
         var bounding = videoRef.current.getBoundingClientRect();
         // console.log('offsetHeight', document.body.offsetHeight);
         // console.log('scrolly', window.scrollY);
         // console.log('innerHeight', window.innerHeight);
-        // console.log('outterHeight', window.outerHeight);
         if (
             bounding.top >= -0.3 * bounding.height &&
             bounding.bottom <=
@@ -94,14 +94,14 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
                     delay={[1000, 0]}
                     render={(props) => (
                         <div tabIndex="-1" {...props}>
-                            <AccountPreview />
+                            <AccountPreview key={data.id} data={data} />
                         </div>
                     )}
                 >
                     <Link to={'/'}>
                         <Image
-                            alt="hoaa"
-                            src="/@hchairbeauty_factory/live"
+                            alt={data?.user.nickname}
+                            src={data?.user.avatar}
                             className={cx('avatar')}
                         />
                     </Link>
@@ -113,20 +113,22 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
                         <HeadlessTippy
                             // visible
                             interactive
-                            offset={[-52, 38]}
+                            offset={[28, 35]}
                             delay={[1000, 0]}
                             render={(props) => (
                                 <div tabIndex="-1" {...props}>
-                                    <AccountPreview />
+                                    <AccountPreview key={data.id} data={data} />
                                 </div>
                             )}
                         >
                             <span>
                                 <span className={cx('nick-name')}>
-                                    Hoa_roi_cua_phat
+                                    {data?.user.nickname}
                                 </span>
                                 <span className={cx('full-name')}>
-                                    Hoa Roi Cua Phat
+                                    {data?.user.first_name +
+                                        ' ' +
+                                        data?.user.last_name}
                                 </span>
                             </span>
                         </HeadlessTippy>
@@ -142,7 +144,7 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
                     </Button>
                     <div className={cx('text-content')}>
                         <span className={cx('desc-video')}>
-                            Đừng xem tới cuối video
+                            {data.description}
                         </span>
                         <a href="#">#humanhairwig</a> <a href="#">#wigforyou</a>{' '}
                         <a href="#">#lacefrontwig</a>
@@ -153,19 +155,18 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
                             className={cx('hashtag')}
                             icon={faMusic}
                         />
-                        Hey It's Me - Official Sound Studio
+                        {data.music}
                     </div>
                 </div>
                 <div className={cx('video-container')}>
                     <div className={cx('video_content')}>
                         <video
-                            // autoPlay
                             loop
+                            // muted="muted"
+                            // autoPlay
                             ref={videoRef}
                             className={cx('video')}
-                            src={
-                                'https://files.fullstack.edu.vn/f8-tiktok/videos/1350-63c6787ca8c8d.mp4'
-                            }
+                            src={data.file_url}
                             onClick={togglePlayVideo}
                         ></video>
                         <span
@@ -206,18 +207,18 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
                         >
                             <Icon_Heart />
                         </span>
-                        <p>18</p>
+                        <p>{data.likes_count}</p>
                         <span
                             className={cx('action_btn')}
                             onClick={context.handleShowModal}
                         >
                             <Icon_Commnet />
                         </span>
-                        <p>28</p>
+                        <p>{data.comments_count}</p>
                         <span className={cx('action_btn')}>
                             <Icon_Share />
                         </span>
-                        <p>8</p>
+                        <p>{data.shares_count}</p>
                     </div>
                 </div>
             </div>
@@ -226,6 +227,7 @@ function Video({ mute, volume, adjustVolume, toggleMuted }) {
 }
 
 Video.propTypes = {
+    data: PropTypes.object.isRequired,
     mute: PropTypes.bool.isRequired,
     volume: PropTypes.number.isRequired,
     adjustVolume: PropTypes.func.isRequired,
