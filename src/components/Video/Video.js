@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,11 +12,78 @@ import Image from '../Image';
 import { useContext } from 'react';
 import { ModalContext } from '../ModalProvider';
 import AccountPreview from './AccountPreview';
+import {
+    Icon_Commnet,
+    Icon_Heart,
+    Icon_Muted,
+    Icon_Pause_Video,
+    Icon_Play_Video,
+    Icon_Share,
+    Icon_Volume,
+} from '../Icons';
 
 const cx = classNames.bind(styles);
-
-function Video() {
+function Video({ mute, volume, adjustVolume, toggleMuted }) {
     const context = useContext(ModalContext);
+    const videoRef = useRef();
+    const [playing, setPlaying] = useState(false);
+
+    useEffect(() => {
+        if (mute) {
+            videoRef.current.volume = 0;
+        } else {
+            videoRef.current.volume = volume;
+        }
+    });
+
+    const handlePlayVideo = () => {
+        if (playing === false) {
+            setPlaying(true);
+            videoRef.current.play();
+        }
+    };
+
+    const handlePauseVideo = () => {
+        if (playing === true) {
+            setPlaying(false);
+            videoRef.current.pause();
+        }
+    };
+
+    const togglePlayVideo = () => {
+        if (playing === true) {
+            handlePauseVideo();
+        } else {
+            handlePlayVideo();
+        }
+    };
+
+    const playVideoInViewport = () => {
+        var bounding = videoRef.current.getBoundingClientRect();
+        // console.log('offsetHeight', document.body.offsetHeight);
+        // console.log('scrolly', window.scrollY);
+        // console.log('innerHeight', window.innerHeight);
+        // console.log('outterHeight', window.outerHeight);
+        if (
+            bounding.top >= -0.3 * bounding.height &&
+            bounding.bottom <=
+                (document.documentElement.clientHeight +
+                    0.4 * bounding.height ||
+                    window.innerHeight + 0.4 * bounding.height) &&
+            bounding.right <=
+                (document.documentElement.clientWidth || window.innerWidth)
+        ) {
+            handlePlayVideo();
+        } else {
+            handlePauseVideo();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', playVideoInViewport);
+        return () => window.removeEventListener('scroll', playVideoInViewport);
+    });
+
     return (
         <div className={cx('wrapper')}>
             <div>
@@ -87,17 +156,80 @@ function Video() {
                         Hey It's Me - Official Sound Studio
                     </div>
                 </div>
-                <div>
-                    <video
-                        className={cx('video-content')}
-                        src={
-                            'https://files.fullstack.edu.vn/f8-tiktok/videos/1350-63c6787ca8c8d.mp4'
-                        }
-                    ></video>
+                <div className={cx('video-container')}>
+                    <div className={cx('video_content')}>
+                        <video
+                            // autoPlay
+                            loop
+                            ref={videoRef}
+                            className={cx('video')}
+                            src={
+                                'https://files.fullstack.edu.vn/f8-tiktok/videos/1350-63c6787ca8c8d.mp4'
+                            }
+                            onClick={togglePlayVideo}
+                        ></video>
+                        <span
+                            className={cx('btn_toggle_video')}
+                            onClick={togglePlayVideo}
+                        >
+                            {playing ? (
+                                <Icon_Pause_Video />
+                            ) : (
+                                <Icon_Play_Video />
+                            )}
+                        </span>
+                        <div className={cx('action_right')}>
+                            <span className={cx('wrapper_volumn')}>
+                                <input
+                                    className={cx('btn_toggle_volumn')}
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    orient="vertical"
+                                    onChange={(e) => adjustVolume(e)}
+                                    value={volume * 100}
+                                />
+                            </span>
+                            <span
+                                className={cx('btn_mute')}
+                                onClick={toggleMuted}
+                            >
+                                {mute ? <Icon_Muted /> : <Icon_Volume />}
+                            </span>
+                        </div>
+                    </div>
+                    <div className={cx('actions')}>
+                        <span
+                            className={cx('action_btn')}
+                            onClick={context.handleShowModal}
+                        >
+                            <Icon_Heart />
+                        </span>
+                        <p>18</p>
+                        <span
+                            className={cx('action_btn')}
+                            onClick={context.handleShowModal}
+                        >
+                            <Icon_Commnet />
+                        </span>
+                        <p>28</p>
+                        <span className={cx('action_btn')}>
+                            <Icon_Share />
+                        </span>
+                        <p>8</p>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
+
+Video.propTypes = {
+    mute: PropTypes.bool.isRequired,
+    volume: PropTypes.number.isRequired,
+    adjustVolume: PropTypes.func.isRequired,
+    toggleMuted: PropTypes.func.isRequired,
+};
 
 export default Video;

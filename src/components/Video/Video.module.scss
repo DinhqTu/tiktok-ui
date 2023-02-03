@@ -101,9 +101,117 @@
     margin-right: 5px;
 }
 
-.video-content {
+.video-container {
+    position: relative;
+    display: flex;
+}
+
+.video_content {
+    position: relative;
+
+    .btn_toggle_video {
+        left: 16px;
+        bottom: 32px;
+        display: none;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .action_right {
+        position: absolute;
+        bottom: 32px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+
+        .wrapper_volumn {
+            display: none;
+            position: relative;
+            padding: 32px 13px;
+            margin-bottom: 10px;
+            border-radius: 32px;
+            background-color: #16182357;
+        }
+
+        &:hover .wrapper_volumn {
+            display: block;
+            margin-left: -2px;
+            animation: show 1s linear;
+        }
+        @keyframes show {
+            from {
+                display: none;
+            }
+            to {
+                display: block;
+            }
+        }
+    }
+
+    &:hover .btn_toggle_video {
+        display: block;
+    }
+
+    &:hover .action_right {
+        display: flex;
+    }
+}
+
+.video {
     width: 283px;
     height: 470px;
     border-radius: 8px;
     object-fit: cover;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn_mute,
+.btn_volumn {
+    cursor: pointer;
+}
+
+.btn_toggle_volumn {
+    width: 47px;
+    height: 2px;
+    right: -10px;
+    position: absolute;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    background-color: #fff;
+    transform: rotate(-90deg);
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    position: absolute;
+    bottom: 7px;
+    right: 272px;
+
+    p {
+        color: rgba(22, 24, 35, 1);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.action_btn {
+    padding: 12px;
+    background-color: #1618230f;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
 }

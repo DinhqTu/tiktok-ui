@@ -79,7 +79,7 @@ a[href] {
     color: rgba(22, 24, 35, 1);
 }
 
-// customer tippy  tooltip
+// Customize  tippy  tooltip
 body {
     .tippy-box {
         border-radius: 8px;
@@ -103,4 +103,48 @@ body {
     & .separate {
         border-top: 1px solid rgba(22, 24, 35, 0.12);
     }
+}
+
+// //setting input type range vertical
+// input[type='range'][orient='vertical'] {
+//     -webkit-appearance: none; /* Chromium */
+// width: 2px;
+// height: 2px;
+// padding: 0 5px;
+// }
+
+// /********** Range Input Styles **********/
+// /*Range Reset*/
+// input[type='range'] {
+//     -webkit-appearance: none;
+//     appearance: none;
+//     background: transparent;
+//     cursor: pointer;
+//     width: 15rem;
+// }
+
+// /* Removes default focus */
+// input[type='range']:focus {
+//     outline: none;
+// }
+
+// /***** Chrome, Safari, Opera and Edge Chromium styles *****/
+// /* slider track */
+// input[type='range']::-webkit-slider-runnable-track {
+//     background-color: #053a5f;
+//     border-radius: 0.5rem;
+//     height: 0.5rem;
+// }
+
+// /* slider thumb */
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    // margin-top: -12px; /* Centers thumb on the track */
+
+    /*custom styles*/
+    background-color: #fff;
+    height: 1.2rem;
+    width: 1.2rem;
+    border-radius: 50%;
 }
