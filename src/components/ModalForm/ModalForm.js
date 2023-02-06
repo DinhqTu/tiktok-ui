@@ -123,7 +123,7 @@ function ModalForm() {
         const resetDataForm = LOGIN_REGISTER_LIST.find(
             (form) => form.type === typeOfForm,
         );
-        setDataForm(resetDataForm);
+        setDataForm(resetDataForm);     
     }, [typeOfForm]);
 
     const handleChangeTypeFormRegister = () => {

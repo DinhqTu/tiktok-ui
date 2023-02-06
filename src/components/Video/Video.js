@@ -15,12 +15,14 @@ import AccountPreview from './AccountPreview';
 import {
     Icon_Commnet,
     Icon_Heart,
+    Icon_loading,
     Icon_Muted,
     Icon_Pause_Video,
     Icon_Play_Video,
     Icon_Share,
     Icon_Volume,
 } from '../Icons';
+import ModalShareVideo from '../ModalShareVideo';
 
 const cx = classNames.bind(styles);
 function Video({ data, mute, volume, adjustVolume, toggleMuted }) {
@@ -61,9 +63,6 @@ function Video({ data, mute, volume, adjustVolume, toggleMuted }) {
     const playVideoInViewport = () => {
         // dùng để lấy các vị trí x,y,height,width,... của phần tử
         var bounding = videoRef.current.getBoundingClientRect();
-        // console.log('offsetHeight', document.body.offsetHeight);
-        // console.log('scrolly', window.scrollY);
-        // console.log('innerHeight', window.innerHeight);
         if (
             bounding.top >= -0.3 * bounding.height &&
             bounding.bottom <=
@@ -162,12 +161,18 @@ function Video({ data, mute, volume, adjustVolume, toggleMuted }) {
                     <div className={cx('video_content')}>
                         <video
                             loop
-                            // muted="muted"
+                            // muted={true}
                             // autoPlay
                             ref={videoRef}
                             className={cx('video')}
                             src={data.file_url}
                             onClick={togglePlayVideo}
+                            style={
+                                data?.meta?.video.resolution_x <
+                                data?.meta?.video.resolution_y
+                                    ? { width: '286px' }
+                                    : { width: '490px' }
+                            }
                         ></video>
                         <span
                             className={cx('btn_toggle_video')}
@@ -216,7 +221,11 @@ function Video({ data, mute, volume, adjustVolume, toggleMuted }) {
                         </span>
                         <p>{data.comments_count}</p>
                         <span className={cx('action_btn')}>
-                            <Icon_Share />
+                            <ModalShareVideo>
+                                <span>
+                                    <Icon_Share />
+                                </span>
+                            </ModalShareVideo>
                         </span>
                         <p>{data.shares_count}</p>
                     </div>

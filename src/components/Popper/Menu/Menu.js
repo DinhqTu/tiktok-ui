@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+
 import styles from './Menu.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
@@ -19,7 +20,6 @@ function Menu({
 }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
-
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;

@@ -9,19 +9,32 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const [video, setVideo] = useState([]);
-    const [page, setPage] = useState(2);
-    const [volume, setVolume] = useState(0.4);
+    const [page, setPage] = useState(1);
+    const [volume, setVolume] = useState(0.6);
     const [prevVolume, setPrevVolume] = useState(volume);
     const [mute, setMute] = useState(false);
 
     useEffect(() => {
         const fetchApi = async () => {
             const data = await videoService.video('for-you', page);
-            setVideo(data);
+            setVideo((prev) => [...prev, ...data]);
         };
 
         fetchApi();
     }, [page]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', loadPage);
+        return () => {
+            window.removeEventListener('scroll', loadPage);
+        };
+    });
+
+    const loadPage = () => {
+        if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
+            setPage((page) => page + 1);
+        }
+    };
 
     const adjustVolume = (e) => {
         setVolume(e.target.value / 100);
@@ -40,10 +53,10 @@ function Home() {
 
     return (
         <div className={cx('container')}>
-            {video.map((data) => {
+            {video.map((data, index) => {
                 return (
                     <Video
-                        key={data.id}
+                        key={index}
                         data={data}
                         mute={mute}
                         volume={volume}
